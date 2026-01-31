@@ -72,6 +72,10 @@ func fire_weapon(weapon_name: String, weapon_data: Dictionary):
 	# Create projectile
 	spawn_projectile(weapon_name, weapon_data, direction)
 	
+	# Play shoot sound
+	if has_node("/root/AudioManager"):
+		get_node("/root/AudioManager").play_sfx("shoot", -15.0, randf_range(0.9, 1.1))
+	
 	# Emit weapon fired event
 	EventBus.weapon_fired.emit(weapon_name, direction)
 

@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://xta8dykydpjw"]
 
-[ext_resource type="Script" path="res://src/scripts/view/ui/StartMenu.gd" id="1_66rjv"]
+[ext_resource type="Script" uid="uid://dmqxd0ij8b74v" path="res://src/scripts/view/ui/StartMenu.gd" id="1_66rjv"]
 
-[node name="StartMenu" type="Control"]
+[node name="StartMenu" type="Control" unique_id=1704251427]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,15 +12,20 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_66rjv")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2048200916]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -14.0
+offset_top = 2.0
+offset_right = -14.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.058824, 0.070588, 0.090196, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=140439102]
 layout_mode = 0
 anchor_left = 0.25
 anchor_top = 0.2
@@ -29,45 +34,47 @@ anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer"]
-layout_mode = 2
+[node name="Panel" type="Panel" parent="MarginContainer" unique_id=638957002]
 custom_minimum_size = Vector2(0, 240)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel"]
 layout_mode = 2
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 304.0
-offset_bottom = 224.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel" unique_id=452249923]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 38.399994
+offset_right = 440.0
+offset_bottom = 282.4
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="TitleLabel" type="Label" parent="MarginContainer/Panel/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="MarginContainer/Panel/VBoxContainer" unique_id=1435879284]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Vamp Survival"
+theme_override_colors/font_color = Color(1, 0.84313726, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "KC Gaming"
 horizontal_alignment = 1
+uppercase = true
 
-[node name="StartButton" type="Button" parent="MarginContainer/Panel/VBoxContainer"]
+[node name="StartButton" type="Button" parent="MarginContainer/Panel/VBoxContainer" unique_id=866663475]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
 text = "Start Game"
 
-[node name="OptionsButton" type="Button" parent="MarginContainer/Panel/VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="MarginContainer/Panel/VBoxContainer" unique_id=166153178]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
 text = "Options"
 
-[node name="QuitButton" type="Button" parent="MarginContainer/Panel/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="MarginContainer/Panel/VBoxContainer" unique_id=2037823370]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
 text = "Quit"
 
-[node name="OptionsDialog" type="AcceptDialog" parent="."]
-layout_mode = 3
+[node name="OptionsDialog" type="AcceptDialog" parent="." unique_id=1625979173]
 ok_button_text = "Close"
-
-[node name="OptionsPopup" parent="."]
-instance = "res://src/scenes/UI/Options.tscn"
