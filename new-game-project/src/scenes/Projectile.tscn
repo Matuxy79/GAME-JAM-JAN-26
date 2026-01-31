@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://g8x8x8x8x8x8"]
+
+[ext_resource type="Script" uid="uid://dr2y0ws6e8l41" path="res://src/scripts/model/loot/Projectile.gd" id="1_0x8x8"]
+[ext_resource type="Texture2D" uid="uid://cgvhaceykesuo" path="res://assets/sprites/weapons/laser.png" id="2_0x8x8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_projectile"]
+radius = 8.0
+
+[node name="Projectile" type="Area2D" groups=["projectiles"]]
+script = ExtResource("1_0x8x8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(9.536743e-07, 4.7683716e-07)
+scale = Vector2(0.5833333, 0.46428573)
+texture = ExtResource("2_0x8x8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_projectile")

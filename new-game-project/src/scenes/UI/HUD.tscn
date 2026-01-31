@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://h8x8x8x8x8x8"]
+
+[ext_resource type="Script" uid="uid://cabkb5loqf001" path="res://src/scripts/view/ui/HUD.gd" id="1_0x8x8"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0x8x8")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 312.0
+offset_bottom = 36.0
+value = 100.0
+
+[node name="XPBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 40.0
+offset_right = 312.0
+offset_bottom = 64.0
+
+[node name="LevelLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 68.0
+offset_right = 72.0
+offset_bottom = 90.0
+text = "Level: 1"
+
+[node name="Mechanics" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 96.0
+offset_right = 276.0
+offset_bottom = 160.0
+
+[node name="StatsPanel" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -260.0
+offset_right = 260.0
+offset_bottom = -12.0
+stretch_mode = 4
+
+[node name="StatsContainer" type="VBoxContainer" parent="StatsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4

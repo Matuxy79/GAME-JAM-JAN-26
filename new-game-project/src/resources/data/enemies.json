@@ -1,0 +1,34 @@
+{
+	"enemies": {
+		"basic_enemy": {
+			"name": "Basic Enemy",
+			"health": 40,
+			"speed": 100,
+			"damage": 10,
+			"xp_reward": 25,
+			"attack_range": 30,
+			"detection_range": 150,
+			"attack_cooldown": 1.0
+		},
+		"fast_enemy": {
+			"name": "Fast Enemy",
+			"health": 30,
+			"speed": 200,
+			"damage": 5,
+			"xp_reward": 50,
+			"attack_range": 25,
+			"detection_range": 120,
+			"attack_cooldown": 0.8
+		},
+		"tank_enemy": {
+			"name": "Big Enemy",
+			"health": 80,
+			"speed": 50,
+			"damage": 10,
+			"xp_reward": 50,
+			"attack_range": 35,
+			"detection_range": 180,
+			"attack_cooldown": 1.5
+		}
+	}
+}

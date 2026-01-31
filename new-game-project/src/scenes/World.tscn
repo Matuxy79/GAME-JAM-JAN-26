@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://c8x8x8x8x8x8"]
+
+[ext_resource type="Script" uid="uid://qo24tx5xne8m" path="res://src/scripts/controller/scenes/World.gd" id="1_0x8x8"]
+[ext_resource type="PackedScene" uid="uid://d8x8x8x8x8x8" path="res://src/scenes/Player.tscn" id="2_0x8x8"]
+[ext_resource type="Script" uid="uid://vgqkhb2354ab" path="res://src/scripts/controller/enemy/EnemyManager.gd" id="3_0x8x8"]
+[ext_resource type="Script" uid="uid://1xetfs1cn31v" path="res://src/scripts/controller/loot/LootManager.gd" id="4_0x8x8"]
+[ext_resource type="Script" uid="uid://judeftwsvbjw" path="res://src/scripts/controller/loot/ProjectileManager.gd" id="5_0x8x8"]
+[ext_resource type="Script" uid="uid://bnh55n53tdbyr" path="res://src/scripts/view/misc/FxManager.gd" id="6_0x8x8"]
+[ext_resource type="Texture2D" uid="uid://dtc8mgpy7ee8l" path="res://assets/sprites/ui/background.png" id="7_bg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hud_blocker"]
+size = Vector2(320, 260)
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_0x8x8")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("7_bg")
+centered = false
+
+[node name="Player" parent="." instance=ExtResource("2_0x8x8")]
+
+[node name="EnemyManager" type="Node" parent="."]
+script = ExtResource("3_0x8x8")
+
+[node name="LootManager" type="Node" parent="."]
+script = ExtResource("4_0x8x8")
+
+[node name="ProjectileManager" type="Node" parent="."]
+script = ExtResource("5_0x8x8")
+
+[node name="FxManager" type="Node" parent="."]
+script = ExtResource("6_0x8x8")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="HUDBlocker" type="StaticBody2D" parent="."]
+position = Vector2(176, 520)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HUDBlocker"]
+shape = SubResource("RectangleShape2D_hud_blocker")

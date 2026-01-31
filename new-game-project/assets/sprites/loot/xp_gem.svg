@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+  <!-- XP Gem diamond shape -->
+  <polygon points="8,2 12,6 8,14 4,6" fill="#00FF00" stroke="#000000" stroke-width="1"/>
+  <!-- Gem facets -->
+  <polygon points="8,2 10,6 8,8" fill="#88FF88"/>
+  <polygon points="8,8 10,6 8,14" fill="#44AA44"/>
+  <polygon points="8,2 6,6 8,8" fill="#88FF88"/>
+  <polygon points="8,8 6,6 8,14" fill="#44AA44"/>
+  <!-- Sparkle effect -->
+  <circle cx="8" cy="6" r="1" fill="#FFFFFF"/>
+</svg>

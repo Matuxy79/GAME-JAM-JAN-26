@@ -1,0 +1,30 @@
+{
+    "powerups": {
+        "laser_beam": {
+            "name": "Laser Beam",
+            "description": "Shoots twice as fast for 30 seconds.",
+            "effect": "fire_rate_multiplier",
+            "value": 2.0,
+            "duration": 30.0,
+            "weapon": "laser_beam",
+            "icon": "res://assets/sprites/weapons/laserbeam.png"
+        },
+        "spike_ring": {
+            "name": "Spike Ring",
+            "description": "Twice the damage but half the projectile speed for 30 seconds.",
+            "effects": [
+                {
+                    "effect": "damage_multiplier",
+                    "value": 2.0
+                },
+                {
+                    "effect": "projectile_speed_multiplier",
+                    "value": 0.5
+                }
+            ],
+            "duration": 30.0,
+            "weapon": "spike_ring",
+            "icon": "res://assets/sprites/weapons/laserspikeball.png"
+        }
+    }
+}

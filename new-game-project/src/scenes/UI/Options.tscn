@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/scenes/UI/Options.gd" id="1_0x0"]
+
+[node name="Options" type="PopupPanel"]
+script = ExtResource("1_0x0")
+window_title = "Options"
+popup_centered = true
+
+
+[node name="VBox" type="VBoxContainer" parent="."]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 12.0
+margin_bottom = 12.0
+
+[node name="Label" type="Label" parent="VBox"]
+text = "Difficulty"
+
+[node name="Easy" type="Button" parent="VBox"]
+text = "Easy"
+
+[node name="Medium" type="Button" parent="VBox"]
+text = "Medium"
+
+[node name="Hard" type="Button" parent="VBox"]
+text = "Hard"
+
+[node name="Close" type="Button" parent="VBox"]
+text = "Close"

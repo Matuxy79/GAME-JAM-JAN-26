@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://f8x8x8x8x8x8"]
+
+[ext_resource type="Script" uid="uid://3ctqud4wrnfo" path="res://src/scripts/model/loot/XPGem.gd" id="1_0x8x8"]
+[ext_resource type="Texture2D" uid="uid://cj3nwn806bh2s" path="res://assets/sprites/loot/xp_gem.svg" id="2_0x8x8"]
+
+[node name="XPGem" type="Area2D" groups=["xp_gem"]]
+script = ExtResource("1_0x8x8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-9.536743e-07, 1.9073486e-06)
+scale = Vector2(1.9218756, 1.7812504)
+texture = ExtResource("2_0x8x8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

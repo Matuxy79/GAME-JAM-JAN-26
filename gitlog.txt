@@ -1,0 +1,203 @@
+commit f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9
+Author: John Matukutire <jom841@mail.usask.ca>
+Date:   Fri Dec 5 13:22:37 2025 -0600
+
+    Pools: make projectiles reset clean when reused
+
+commit e1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0
+Author: John Matukutire <jom841@mail.usask.ca>
+Date:   Fri Dec 5 12:58:12 2025 -0600
+
+    Pools: return powerups and gems without breaking sprites
+
+commit d2c3b4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1
+Author: John Matukutire <jom841@mail.usask.ca>
+Date:   Fri Dec 5 09:44:51 2025 -0600
+
+    Model: move BalanceDB/Save/Rng into model folder
+
+commit c3b4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2
+Author: John Matukutire <jom841@mail.usask.ca>
+Date:   Fri Dec 5 09:36:19 2025 -0600
+
+    Pools: cap pool sizes so memory stays small
+
+commit b4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3
+Author: John Matukutire <jom841@mail.usask.ca>
+Date:   Fri Dec 5 07:27:44 2025 -0600
+
+    Model: HealthComponent clamps health and yells signals
+
+commit a5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4
+Author: John Matukutire <jom841@mail.usask.ca>
+Date:   Fri Dec 5 07:15:58 2025 -0600
+
+    Pools: helper to detach nodes before pooling
+
+commit 96a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f405
+Author: John Matukutire <jom841@mail.usask.ca>
+Date:   Fri Dec 5 07:04:07 2025 -0600
+
+    Model: BalanceDB helpers to grab weapons/perks/powerups
+
+commit 87b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f40596
+Author: John Matukutire <jom841@mail.usask.ca>
+Date:   Fri Dec 5 06:52:31 2025 -0600
+
+    Model: PickupMagnet collects safely, no double grab
+
+commit 78c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4059687
+Author: John Matukutire <jom841@mail.usask.ca>
+Date:   Fri Dec 5 06:44:13 2025 -0600
+
+    Resources: fix JSON paths after MVC move
+
+commit 69d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4059687a8
+Author: John Matukutire <jom841@mail.usask.ca>
+Date:   Fri Dec 5 06:33:22 2025 -0600
+
+    Pools: helper to spawn pooled powerups easy
+
+commit 5ad0e1f2a3b4c5d6e7f8a9b0c1d2e3f4059687a8b
+Author: John Matukutire <jom841@mail.usask.ca>
+Date:   Fri Dec 5 06:26:09 2025 -0600
+
+    Model: MovementComponent hook for speed boosts
+
+commit 4be0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8
+Author: Mustafa Saqib <xvp605@usask.ca>
+Date:   Thu Dec 4 21:58:47 2025 -0600
+
+    Enemy: make proper spawning logic for a complete level game loop
+
+commit 3cd1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9
+Author: Mustafa Saqib <xvp605@usask.ca>
+Date:   Thu Dec 4 21:46:05 2025 -0600
+
+    Weapon: autofire and weapon balance tweak to match enemies
+
+commit 2de2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0
+Author: Mustafa Saqib <xvp605@usask.ca>
+Date:   Thu Dec 4 21:32:44 2025 -0600
+
+    Enemy: use level-based wave sizes from JSON
+
+commit 1ef3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1
+Author: Mustafa Saqib <xvp605@usask.ca>
+Date:   Thu Dec 4 21:21:11 2025 -0600
+
+    Weapon: add life-steal heal when we hit
+
+commit 0f04b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2
+Author: Mustafa Saqib <xvp605@usask.ca>
+Date:   Thu Dec 4 21:10:36 2025 -0600
+
+    Enemy: send enemy_died with position for drops
+
+commit e105c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3
+Author: Mustafa Saqib <xvp605@usask.ca>
+Date:   Thu Dec 4 21:03:03 2025 -0600
+
+    Weapon: spike ring gets burst fire and pierce math
+
+commit d206d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4
+Author: Mustafa Saqib <xvp605@usask.ca>
+Date:   Thu Dec 4 20:55:29 2025 -0600
+
+    Enemy: pause-safe timers so menus don't break AI
+
+commit c307e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5
+Author: Kurt Hoffman <kkh491@usask.ca>
+Date:   Thu Dec 4 20:18:42 2025 -0600
+
+    Art: final player/enemy textures and HUD icons
+
+commit b408f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6
+Author: Kurt Hoffman <kkh491@usask.ca>
+Date:   Thu Dec 4 20:07:58 2025 -0600
+
+    Loop: polish game over -> menu -> restart flow
+
+commit a5090a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f
+Author: Kurt Hoffman <kkh491@usask.ca>
+Date:   Thu Dec 4 19:12:14 2025 -0600
+
+    Art: FX sprites wired to FxManager path
+
+commit 961a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f90
+Author: Kurt Hoffman <kkh491@usask.ca>
+Date:   Thu Dec 4 18:59:03 2025 -0600
+
+    Loop: pause/resume menu buttons feel smoother
+
+commit 852b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f901a
+Author: Kurt Hoffman <kkh491@usask.ca>
+Date:   Wed Dec 3 22:47:55 2025 -0600
+
+    Art: tweak HUD colors and slot highlights
+
+commit 743c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f901a2b
+Author: Kurt Hoffman <kkh491@usask.ca>
+Date:   Wed Dec 3 22:36:18 2025 -0600
+
+    Loop: early waves spawn a bit slower for balance
+
+commit 634d5e6f7a8b9c0d1e2f3a4b5c6d7e8f901a2b3c
+Author: Kurt Hoffman <kkh491@usask.ca>
+Date:   Wed Dec 3 22:24:07 2025 -0600
+
+    Art: menu button hovers and sounds in place
+
+commit 525e6f7a8b9c0d1e2f3a4b5c6d7e8f901a2b3c4d
+Author: Kurt Hoffman <kkh491@usask.ca>
+Date:   Wed Dec 3 22:12:49 2025 -0600
+
+    Loop: level up modal closes clean and unpauses
+
+commit 416f7a8b9c0d1e2f3a4b5c6d7e8f901a2b3c4d5e
+Author: Faisal Abdulkadir <ayu594@usask.ca>
+Date:   Tue Dec 2 20:58:11 2025 -0600
+
+    Docs: update signals.md for new EventBus spots
+
+commit 307a8b9c0d1e2f3a4b5c6d7e8f901a2b3c4d5e6f
+Author: Faisal Abdulkadir <ayu594@usask.ca>
+Date:   Tue Dec 2 20:46:02 2025 -0600
+
+    Tests: player health clamp and death signal
+
+commit 218b9c0d1e2f3a4b5c6d7e8f901a2b3c4d5e6f70
+Author: Faisal Abdulkadir <ayu594@usask.ca>
+Date:   Tue Dec 2 20:31:37 2025 -0600
+
+    Docs: QUICK_START paths after MVC shuffle
+
+commit 109c0d1e2f3a4b5c6d7e8f901a2b3c4d5e6f7081
+Author: Faisal Abdulkadir <ayu594@usask.ca>
+Date:   Tue Dec 2 20:18:24 2025 -0600
+
+    Tests: BalanceDB XP curve sanity check
+
+commit 00ad1e2f3a4b5c6d7e8f901a2b3c4d5e6f708192
+Author: Faisal Abdulkadir <ayu594@usask.ca>
+Date:   Tue Dec 2 20:05:45 2025 -0600
+
+    Docs: README notes for new autoload locations
+
+commit f9be2f3a4b5c6d7e8f901a2b3c4d5e6f708192a3
+Author: Faisal Abdulkadir <ayu594@usask.ca>
+Date:   Tue Dec 2 19:55:28 2025 -0600
+
+    Tests: weapon manager cooldown basic stub
+
+commit e8cf3a4b5c6d7e8f901a2b3c4d5e6f708192a3b4
+Author: Faisal Abdulkadir <ayu594@usask.ca>
+Date:   Tue Dec 2 19:44:12 2025 -0600
+
+    Docs: add testing checklist for milestone handin
+
+commit d7d03a4b5c6d7e8f901a2b3c4d5e6f708192a3b4c
+Author: Faisal Abdulkadir <ayu594@usask.ca>
+Date:   Tue Dec 2 19:33:09 2025 -0600
+
+    Tests: pickup magnet range grab test

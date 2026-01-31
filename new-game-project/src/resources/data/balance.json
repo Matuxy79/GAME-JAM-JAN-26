@@ -1,0 +1,33 @@
+{
+	"game_balance": {
+		"player": {
+			"base_health": 100,
+			"base_speed": 200,
+			"base_damage": 10,
+			"xp_gain_multiplier": 1.0
+		},
+		"enemies": {
+			"spawn_interval": 2.0,
+			"max_enemies": 50,
+			"spawn_distance": 300,
+			"detection_range": 150
+		},
+		"weapons": {
+			"base_fire_rate": 1.0,
+			"base_damage": 10,
+			"base_range": 200,
+			"base_speed": 300
+		},
+		"xp_gems": {
+			"base_value": 10,
+			"variance": 0.5,
+			"attraction_speed": 100
+		},
+		"difficulty": {
+			"enemy_health_scaling": 1.1,
+			"enemy_damage_scaling": 1.05,
+			"enemy_speed_scaling": 1.02,
+			"spawn_rate_scaling": 1.1
+		}
+	}
+}

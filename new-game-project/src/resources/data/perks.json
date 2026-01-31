@@ -1,0 +1,60 @@
+{
+	"perks": {
+		"health_boost": {
+			"name": "Health Boost",
+			"description": "Increases max health by 20",
+			"effect": "max_health",
+			"value": 20,
+			"rarity": "common"
+		},
+		"damage_boost": {
+			"name": "Damage Boost",
+			"description": "Increases weapon damage by 25%",
+			"effect": "damage_multiplier",
+			"value": 1.25,
+			"rarity": "common"
+		},
+		"speed_boost": {
+			"name": "Speed Boost",
+			"description": "Increases movement speed by 20%",
+			"effect": "speed_multiplier",
+			"value": 1.2,
+			"rarity": "common"
+		},
+		"fire_rate_boost": {
+			"name": "Fire Rate Boost",
+			"description": "Increases weapon fire rate by 30%",
+			"effect": "fire_rate_multiplier",
+			"value": 1.3,
+			"rarity": "uncommon"
+		},
+		"xp_boost": {
+			"name": "XP Boost",
+			"description": "Increases XP gain by 50%",
+			"effect": "xp_multiplier",
+			"value": 1.5,
+			"rarity": "uncommon"
+		},
+		"pierce_shot": {
+			"name": "Pierce Shot",
+			"description": "Projectiles pierce through 2 additional enemies",
+			"effect": "pierce_bonus",
+			"value": 2,
+			"rarity": "rare"
+		},
+		"life_steal": {
+			"name": "Life Steal",
+			"description": "Heal for 10% of damage dealt",
+			"effect": "life_steal",
+			"value": 0.1,
+			"rarity": "rare"
+		},
+		"explosive_rounds": {
+			"name": "Explosive Rounds",
+			"description": "Projectiles grow in size and hitbox",
+			"effect": "explosive_radius",
+			"value": 0.2,
+			"rarity": "epic"
+		}
+	}
+}
