@@ -15,10 +15,18 @@ script = ExtResource("1_0x8x8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_0x8x8")
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.25, 0.25)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4inp7")
+
+[node name="AimPivot" type="Node2D" parent="."]
+
+[node name="WeaponSocket" type="Sprite2D" parent="AimPivot"]
+position = Vector2(8, 0)
+
+[node name="Muzzle" type="Marker2D" parent="AimPivot/WeaponSocket"]
+position = Vector2(10, 0)
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("3_0x8x8")

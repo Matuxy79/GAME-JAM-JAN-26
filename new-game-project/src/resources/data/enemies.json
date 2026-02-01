@@ -1,34 +1,64 @@
 {
 	"enemies": {
-		"basic_enemy": {
-			"name": "Basic Enemy",
-			"health": 40,
-			"speed": 100,
-			"damage": 10,
-			"xp_reward": 25,
-			"attack_range": 30,
-			"detection_range": 150,
-			"attack_cooldown": 1.0
+		"elephant": {
+			"name": "Elephant",
+			"health": 100,
+			"speed": 60,
+			"xp_reward": 75
 		},
-		"fast_enemy": {
-			"name": "Fast Enemy",
-			"health": 30,
-			"speed": 200,
-			"damage": 5,
-			"xp_reward": 50,
-			"attack_range": 25,
-			"detection_range": 120,
-			"attack_cooldown": 0.8
+		"hippo": {
+			"name": "Hippo",
+			"health": 90,
+			"speed": 70,
+			"xp_reward": 75
 		},
-		"tank_enemy": {
-			"name": "Big Enemy",
+		"giraffe": {
+			"name": "Giraffe",
 			"health": 80,
-			"speed": 50,
-			"damage": 10,
-			"xp_reward": 50,
-			"attack_range": 35,
-			"detection_range": 180,
-			"attack_cooldown": 1.5
+			"speed": 80,
+			"xp_reward": 75
+		},
+		"panda": {
+			"name": "Panda",
+			"health": 60,
+			"speed": 90,
+			"xp_reward": 50
+		},
+		"pig": {
+			"name": "Pig",
+			"health": 55,
+			"speed": 95,
+			"xp_reward": 50
+		},
+		"monkey": {
+			"name": "Monkey",
+			"health": 50,
+			"speed": 110,
+			"xp_reward": 50
+		},
+		"rabbit": {
+			"name": "Rabbit",
+			"health": 35,
+			"speed": 130,
+			"xp_reward": 25
+		},
+		"snake": {
+			"name": "Snake",
+			"health": 30,
+			"speed": 120,
+			"xp_reward": 25
+		},
+		"parrot": {
+			"name": "Parrot",
+			"health": 25,
+			"speed": 140,
+			"xp_reward": 25
+		},
+		"penguin": {
+			"name": "Penguin",
+			"health": 30,
+			"speed": 100,
+			"xp_reward": 25
 		}
 	}
 }

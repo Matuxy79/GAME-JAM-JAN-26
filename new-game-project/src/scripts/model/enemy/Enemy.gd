@@ -1,189 +1,188 @@
-## Enemy script. does game stuff in a simple way.
+## Enemy - Walk to decor and stand (no player attacking)
 extends CharacterBody2D
 class_name Enemy
 
-# Enemy - Individual enemy AI with seek, attack, and die behaviors
-# Uses state machine for different behaviors
+# Enemy AI: Find decor, walk to it, stand there
+# Enemies do NOT chase or attack the player
 
 enum State {
-	IDLE,
-	SEEK_PLAYER,
-	ATTACK,
+	IDLE,           # Looking for decor to claim
+	WALK_TO_DECOR,  # Walking toward claimed decor
+	STANDING,       # At decor, just standing
 	DYING
 }
 
-@export var enemy_type: String = "basic_enemy"
+@export var enemy_type: String = "elephant"
 @export var max_health: int = 50
-@export var speed: float = 100.0
-@export var attack_damage: int = 10
-@export var attack_range: float = 30.0
-@export var detection_range: float = 150.0
+@export var speed: float = 12.0
 @export var xp_reward: int = 25
 
 var current_health: int
 var current_state: State = State.IDLE
-var player: Node2D
-var attack_timer: float = 0.0
-var attack_cooldown: float = 1.0
+var claimed_decor_pos: Vector2 = Vector2.INF
+var world_map: Node  # Reference to WorldMap for decor claiming
+var knockback_velocity: Vector2 = Vector2.ZERO
+
+# Animal sprite textures
+const ANIMAL_SPRITES = {
+	"elephant": preload("res://assets/sprites/enemies/new-to-replace-old/elephant.png"),
+	"giraffe": preload("res://assets/sprites/enemies/new-to-replace-old/giraffe.png"),
+	"hippo": preload("res://assets/sprites/enemies/new-to-replace-old/hippo.png"),
+	"monkey": preload("res://assets/sprites/enemies/new-to-replace-old/monkey.png"),
+	"panda": preload("res://assets/sprites/enemies/new-to-replace-old/panda.png"),
+	"parrot": preload("res://assets/sprites/enemies/new-to-replace-old/parrot.png"),
+	"penguin": preload("res://assets/sprites/enemies/new-to-replace-old/penguin.png"),
+	"pig": preload("res://assets/sprites/enemies/new-to-replace-old/pig.png"),
+	"rabbit": preload("res://assets/sprites/enemies/new-to-replace-old/rabbit.png"),
+	"snake": preload("res://assets/sprites/enemies/new-to-replace-old/snake.png")
+}
+
+# Health by animal size (common sense)
+const ANIMAL_HEALTH = {
+	# Large animals - high HP
+	"elephant": 100,
+	"hippo": 90,
+	"giraffe": 80,
+	# Medium animals - medium HP
+	"panda": 60,
+	"pig": 55,
+	"monkey": 50,
+	# Small animals - low HP
+	"rabbit": 35,
+	"snake": 30,
+	"parrot": 25,
+	"penguin": 30
+}
+
+# Speed by animal size (inverse of health)
+const ANIMAL_SPEEDS = {
+	# Large animals - slow
+	"elephant": 12,
+	"hippo": 14,
+	"giraffe": 16,
+	# Medium animals - medium speed
+	"panda": 18,
+	"pig": 19,
+	"monkey": 22,
+	# Small animals - fast
+	"rabbit": 26,
+	"snake": 24,
+	"parrot": 28,
+	"penguin": 20
+}
 
 func _ready():
 	add_to_group("enemies")
+	z_index = -8  # In front of decor (decor is at -9)
 	current_health = max_health
-	load_enemy_data()
-	calculate_attack_range()
-	calculate_detection_range()
-	print("Enemy initialized: ", enemy_type, " - Attack range: ", attack_range, " - Detection range: ", detection_range)
 
-func load_enemy_data():
-	var enemy_data = BalanceDB.get_enemy_data(enemy_type)
-	if not enemy_data.is_empty():
-		max_health = int(enemy_data.get("health", max_health))
-		speed = float(enemy_data.get("speed", speed))
-		attack_damage = int(enemy_data.get("damage", attack_damage))
-		xp_reward = int(enemy_data.get("xp_reward", xp_reward))
-		# attack_range and detection_range will be calculated based on world scope, not from data
-		attack_cooldown = float(enemy_data.get("attack_cooldown", attack_cooldown))
-		current_health = max_health
 
-func calculate_attack_range():
-	# Fixed attack range for open world
-	attack_range = 100.0
+func find_world_map():
+	if not is_inside_tree():
+		return
 
-func calculate_detection_range():
-	# Fixed detection range for open world
-	detection_range = 500.0
+	var world_maps = get_tree().get_nodes_in_group("world_map")
+	if world_maps.size() > 0:
+		world_map = world_maps[0]
+	else:
+		# Fallback: find by name in scene tree
+		var world = get_tree().current_scene
+		if world:
+			world_map = world.get_node_or_null("WorldMap")
 
-func _physics_process(delta):
-	# Don't process if dying/returned to pool
+func _physics_process(_delta):
 	if current_state == State.DYING:
 		return
-	
+
 	match current_state:
 		State.IDLE:
 			handle_idle_state()
-		State.SEEK_PLAYER:
-			handle_seek_state(delta)
-		State.ATTACK:
-			handle_attack_state(delta)
-		State.DYING:
-			handle_dying_state()
+		State.WALK_TO_DECOR:
+			handle_walk_to_decor_state()
+		State.STANDING:
+			handle_standing_state()
+			
+	# Apply knockback if any
+	if knockback_velocity.length() > 5.0:
+		velocity += knockback_velocity
+		knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, 500 * _delta)
+		move_and_slide()
+	elif knockback_velocity.length() > 0:
+		knockback_velocity = Vector2.ZERO
 
 func handle_idle_state():
-	# Look for player
-	if can_see_player():
-		current_state = State.SEEK_PLAYER
-		print("Enemy spotted player, switching to seek state")
+	# Try to claim a decor position
+	if not world_map:
+		find_world_map()
+		return
 
-func handle_seek_state(_delta):
-	if not player or not is_instance_valid(player):
-		find_player()
-		return
-	
-	var distance_to_player = global_position.distance_to(player.global_position)
-	
-	# Check if player is in attack range
-	if distance_to_player <= attack_range:
-		current_state = State.ATTACK
-		print("Player in attack range (", distance_to_player, " <= ", attack_range, "), switching to attack state")
-		return
-	
-	# Check if player is still in detection range
-	if distance_to_player > detection_range:
+	var nearest_decor = world_map.get_nearest_available_decor(global_position)
+	if nearest_decor != Vector2.INF:
+		if world_map.claim_decor(nearest_decor):
+			claimed_decor_pos = nearest_decor
+			current_state = State.WALK_TO_DECOR
+
+func handle_walk_to_decor_state():
+	if claimed_decor_pos == Vector2.INF:
 		current_state = State.IDLE
-		print("Player out of range, switching to idle state")
 		return
-	
-	# Move towards player
-	var direction = (player.global_position - global_position).normalized()
+
+	# Check if decor still exists (room might have unloaded)
+	if world_map and not world_map.decor_positions.has(claimed_decor_pos):
+		claimed_decor_pos = Vector2.INF
+		current_state = State.IDLE
+		return
+
+	var distance_to_decor = global_position.distance_to(claimed_decor_pos)
+
+	# Check if arrived at decor
+	if distance_to_decor <= 5.0:
+		global_position = claimed_decor_pos  # Snap to exact position
+		velocity = Vector2.ZERO
+		current_state = State.STANDING
+		return
+
+	# Move towards decor
+	var direction = (claimed_decor_pos - global_position).normalized()
 	velocity = direction * speed
 	move_and_slide()
 
-func handle_attack_state(delta):
-	if not player or not is_instance_valid(player):
-		current_state = State.IDLE
-		return
-	
-	var distance_to_player = global_position.distance_to(player.global_position)
-	
-	# Check if player is still in attack range
-	if distance_to_player > attack_range:
-		current_state = State.SEEK_PLAYER
-		print("Player out of attack range (", distance_to_player, " > ", attack_range, "), switching to seek state")
-		return
-	
-	# Attack if cooldown is ready
-	if attack_timer <= 0:
-		attack_player()
-		attack_timer = attack_cooldown
-	else:
-		attack_timer -= delta
-
-func handle_dying_state():
-	# No-op when using pooling - Pools.return_enemy() handles cleanup
-	# Don't queue_free() here as it conflicts with pooling
-	# The die() method stops processing and returns to pool
-	pass
-
-func can_see_player() -> bool:
-	find_player()
-	if not player or not is_instance_valid(player):
-		return false
-	
-	var distance = global_position.distance_to(player.global_position)
-	return distance <= detection_range
-
-func find_player():
-	# Find player in scene
-	var players = get_tree().get_nodes_in_group("player")
-	if players.size() > 0:
-		player = players[0]
-
-func attack_player():
-	if not player or not is_instance_valid(player):
-		return
-	
-	print("Enemy attacking player for ", attack_damage, " damage")
-	
-	# Deal damage to player
-	if player.has_method("take_damage"):
-		player.take_damage(attack_damage)
-	
-	# NOTE: We intentionally do NOT emit `enemy_damaged` here.
-	# That signal represents damage dealt *to* enemies, not damage
-	# dealt by enemies to the player. This keeps life-steal logic
-	# simple on the player side.
+func handle_standing_state():
+	# Just stand there, do nothing
+	velocity = Vector2.ZERO
 
 func take_damage(amount: int):
 	current_health -= amount
-	print("Enemy took ", amount, " damage. Health: ", current_health, "/", max_health)
-	
+
 	# Emit damage event
 	EventBus.enemy_damaged.emit(self, amount)
-	
+
 	# Check for death
 	if current_health <= 0:
 		die()
 
 func die():
-	# Prevent double-call
 	if current_state == State.DYING:
 		return
-	
-	print("Enemy died!")
+
 	current_state = State.DYING
-	
-	# Stop processing immediately to prevent handle_dying_state() from running
+
+	# Stop processing
 	set_process(false)
 	set_physics_process(false)
-	
+
+	# Release claimed decor position
+	if world_map and claimed_decor_pos != Vector2.INF:
+		world_map.release_decor(claimed_decor_pos)
+		claimed_decor_pos = Vector2.INF
+
 	# Emit death event
 	EventBus.enemy_died.emit(self, global_position)
-	
+
 	# Give XP to player
-	if player and is_instance_valid(player):
-		EventBus.player_xp_gained.emit(xp_reward)
-	
-	# Return to pool (pool handles cleanup, no queue_free needed)
+	EventBus.player_xp_gained.emit(xp_reward)
+
+	# Return to pool
 	Pools.return_enemy(self)
 
 func get_health_percentage() -> float:
@@ -194,42 +193,55 @@ func get_health_percentage() -> float:
 func is_alive() -> bool:
 	return current_health > 0 and current_state != State.DYING
 
+func apply_knockback(force: Vector2):
+	knockback_velocity += force
+
 func prepare_for_pool():
 	velocity = Vector2.ZERO
 	visible = false
+	# Release decor if claimed
+	if world_map and claimed_decor_pos != Vector2.INF:
+		world_map.release_decor(claimed_decor_pos)
+		claimed_decor_pos = Vector2.INF
 	set_process(false)
 	set_physics_process(false)
 	set_deferred("process_mode", Node.PROCESS_MODE_DISABLED)
 
 func prepare_for_spawn():
 	current_state = State.IDLE
-	player = null
-	attack_timer = 0.0
+	claimed_decor_pos = Vector2.INF
 	velocity = Vector2.ZERO
 	visible = true
+	z_index = -8  # Ensure z-index is set
 	process_mode = Node.PROCESS_MODE_INHERIT
 	set_process(true)
 	set_physics_process(true)
 
+
 func apply_enemy_type(type_name: String):
 	enemy_type = type_name
-	load_enemy_data()
-	current_health = max_health
-	calculate_attack_range()
-	calculate_detection_range()
-	
-	# Swap sprite texture based on enemy type so variants share logic but look different.
+
+	# Apply animal-specific stats
+	if ANIMAL_HEALTH.has(enemy_type):
+		max_health = ANIMAL_HEALTH[enemy_type]
+		current_health = max_health
+
+	if ANIMAL_SPEEDS.has(enemy_type):
+		speed = ANIMAL_SPEEDS[enemy_type]
+
+	# Set XP reward based on health tier
+	if max_health >= 80:
+		xp_reward = 75  # Large animals
+	elif max_health >= 50:
+		xp_reward = 50  # Medium animals
+	else:
+		xp_reward = 25  # Small animals
+
+	# Swap sprite texture
 	var sprite: Sprite2D = $Sprite2D
-	if sprite:
-		match enemy_type:
-			"basic_enemy":
-				sprite.texture = preload("res://assets/sprites/enemies/enemy.png")
-			"fast_enemy":
-				sprite.texture = preload("res://assets/sprites/enemies/enemyFast.png")
-			"tank_enemy":
-				sprite.texture = preload("res://assets/sprites/enemies/enemyBig.png")
+	if sprite and ANIMAL_SPRITES.has(enemy_type):
+		sprite.texture = ANIMAL_SPRITES[enemy_type]
 
 func reset():
-	# Legacy reset for compatibility with pooling
 	prepare_for_spawn()
 	apply_enemy_type(enemy_type)

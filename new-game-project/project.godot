@@ -22,7 +22,6 @@ Pools="*res://src/scripts/controller/autoload/Pools.gd"
 Save="*res://src/scripts/model/autoload/Save.gd"
 BalanceDB="*res://src/scripts/model/autoload/BalanceDB.gd"
 Rng="*res://src/scripts/model/autoload/Rng.gd"
-AudioManager="*res://src/scripts/controller/autoload/AudioManager.gd"
 
 [display]
 

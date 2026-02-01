@@ -5,7 +5,7 @@ class_name MovementComponent
 # MovementComponent - Handles player input and movement
 # Separated for modularity and easier testing
 
-@export var speed: float = 200.0
+@export var speed: float = 40.0
 @export var acceleration: float = 10.0
 @export var friction: float = 10.0
 

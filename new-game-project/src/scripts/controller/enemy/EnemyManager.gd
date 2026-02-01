@@ -6,28 +6,22 @@ class_name EnemyManager
 # Handles enemy spawning, wave management, and cleanup
 
 @export var max_enemies: int = 50
-@export var spawn_interval: float = 2.0
+@export var spawn_interval: float = 3.0
 @export var spawn_distance: float = 300.0
+
+# 10 animal types (replacing old basic/fast/tank)
 @export var enemy_types: Array[String] = [
-	"basic_enemy",
-	"fast_enemy",
-	"tank_enemy"
+	"elephant", "giraffe", "hippo",      # Large animals
+	"panda", "pig", "monkey",            # Medium animals
+	"rabbit", "snake", "parrot", "penguin"  # Small animals
 ]
 
-# Per-type spawn timing configuration (seconds)
-@export var basic_spawn_interval: float = 10.0
-@export var fast_spawn_interval: float = 20.0
-@export var tank_spawn_interval: float = 30.0
 @export var min_spawn_interval: float = 1.0
-
-# Runtime timers for each enemy type
-var basic_spawn_timer: float = 0.0
-var fast_spawn_timer: float = 0.0
-var tank_spawn_timer: float = 0.0
 
 var spawn_timer: float = 0.0
 var active_enemies: Array[Enemy] = []
 var player: Node2D
+var world_map: Node
 const DESPAWN_DISTANCE: float = 1500.0
 
 # Wave system variables
@@ -39,11 +33,13 @@ var player_level: int = 1
 func _ready():
 	print("EnemyManager initialized")
 	find_player()
+	find_world_map()
 	setup_signals()
 
 func setup():
 	print("EnemyManager setup")
 	find_player()
+	find_world_map()
 	setup_signals()
 
 func setup_signals():
@@ -61,29 +57,17 @@ func _process(delta):
 	if not player or not is_instance_valid(player):
 		find_player()
 		return
-	
+
 	# Calculate enemies per wave based on player level
 	enemies_per_wave = 10 * player_level
-	
-	# Update per-type spawn timers
-	basic_spawn_timer -= delta
-	fast_spawn_timer -= delta
-	tank_spawn_timer -= delta
-	
-	# Spawn enemies based on individual timers
-	if active_enemies.size() < max_enemies and enemies_spawned_this_wave < enemies_per_wave:
-		if basic_spawn_timer <= 0:
-			spawn_enemy_by_type("basic_enemy")
-			basic_spawn_timer = basic_spawn_interval
-		elif fast_spawn_timer <= 0:
-			spawn_enemy_by_type("fast_enemy")
-			fast_spawn_timer = fast_spawn_interval
-		elif tank_spawn_timer <= 0:
-			spawn_enemy_by_type("tank_enemy")
-			tank_spawn_timer = tank_spawn_interval
-	
-	# Despawn enemies too far from player
-	despawn_distant_enemies()
+
+	# Update spawn timer
+	spawn_timer -= delta
+
+	# Spawn random animal at regular intervals
+	if spawn_timer <= 0 and active_enemies.size() < max_enemies and enemies_spawned_this_wave < enemies_per_wave:
+		spawn_enemy()  # Spawns random animal type
+		spawn_timer = spawn_interval
 
 	# Check if wave is complete
 	if enemies_spawned_this_wave >= enemies_per_wave and active_enemies.is_empty():
@@ -93,6 +77,11 @@ func find_player():
 	var players = get_tree().get_nodes_in_group("player")
 	if players.size() > 0:
 		player = players[0]
+
+func find_world_map():
+	var world_maps = get_tree().get_nodes_in_group("world_map")
+	if world_maps.size() > 0:
+		world_map = world_maps[0]
 
 func spawn_enemy():
 	if not player or not is_instance_valid(player):
@@ -114,6 +103,12 @@ func spawn_enemy():
 		enemy.process_mode = Node.PROCESS_MODE_INHERIT
 		enemy.set_process(true)
 		enemy.set_physics_process(true)
+
+	# Assign WorldMap reference
+	if not world_map:
+		find_world_map()
+	if world_map and "world_map" in enemy:
+		enemy.world_map = world_map
 	
 	# Choose random enemy type
 	var enemy_type = Rng.random_choice(enemy_types)
@@ -156,6 +151,12 @@ func spawn_enemy_by_type(enemy_type: String):
 		enemy.process_mode = Node.PROCESS_MODE_INHERIT
 		enemy.set_process(true)
 		enemy.set_physics_process(true)
+
+	# Assign WorldMap reference
+	if not world_map:
+		find_world_map()
+	if world_map and "world_map" in enemy:
+		enemy.world_map = world_map
 	
 	# Apply the specified enemy type
 	if enemy.has_method("apply_enemy_type"):
@@ -233,16 +234,11 @@ func _on_game_started():
 	enemies_spawned_this_wave = 0
 	player_level = 1
 	enemies_per_wave = 10 * player_level
-	
-	# Initialize per-type spawn timers so they don't all fire on frame 1
-	basic_spawn_timer = basic_spawn_interval
-	fast_spawn_timer = fast_spawn_interval
-	tank_spawn_timer = tank_spawn_interval
-	
-	# Spawn one of each enemy type at the start of the game
-	for enemy_type in enemy_types:
-		spawn_enemy_by_type(enemy_type)
-	
+
+	# Spawn a few random animals to start
+	for i in range(3):
+		spawn_enemy()
+
 	print("Game started, enemy spawning enabled - Wave ", current_wave)
 
 func _on_game_over(_final_score: int):
@@ -277,15 +273,9 @@ func _on_player_level_up(new_level: int):
 	_update_spawn_intervals()
 
 func _update_spawn_intervals():
-	basic_spawn_interval = max(min_spawn_interval, basic_spawn_interval - 1.0)
-	fast_spawn_interval = max(min_spawn_interval, fast_spawn_interval - 1.0)
-	tank_spawn_interval = max(min_spawn_interval, tank_spawn_interval - 1.0)
-	
-	basic_spawn_timer = basic_spawn_interval
-	fast_spawn_timer = fast_spawn_interval
-	tank_spawn_timer = tank_spawn_interval
-	
-	print("Spawn intervals updated for level ", player_level, ": basic=", basic_spawn_interval, ", fast=", fast_spawn_interval, ", tank=", tank_spawn_interval)
+	# Decrease spawn interval each level (spawn faster)
+	spawn_interval = max(min_spawn_interval, spawn_interval - 0.5)
+	print("Spawn interval updated for level ", player_level, ": ", spawn_interval)
 
 func start_next_wave():
 	# Start next wave: reset counters and update wave number

@@ -15,6 +15,8 @@ var direction: Vector2 = Vector2.RIGHT
 var distance_traveled: float = 0.0
 var current_pierce: int = 0
 var radius_multiplier: float = 1.0
+var explosive_radius: float = 0.0
+var knockback_force: float = 0.0
 
 func _ready():
 	# Use the CollisionShape2D defined in the scene and ensure collisions are enabled.
@@ -43,14 +45,17 @@ func _physics_process(delta):
 	if distance_traveled >= max_range:
 		destroy()
 
-func setup(projectile_damage: int, projectile_speed: float, projectile_direction: Vector2, projectile_range: float, radius_mult: float = 1.0):
+func setup(projectile_damage: int, projectile_speed: float, projectile_direction: Vector2, projectile_range: float, explosion_rad: float = 0.0, knockback_val: float = 0.0):
 	damage = projectile_damage
 	speed = projectile_speed
 	direction = projectile_direction.normalized()
 	max_range = projectile_range
+	explosive_radius = explosion_rad
+	knockback_force = knockback_val
 	distance_traveled = 0.0
 	current_pierce = 0
-	radius_multiplier = radius_mult
+	# Default radius multiplier for now, or derive from explosion radius if we wanted big bullets
+	radius_multiplier = 1.0 
 	_update_hitbox_size()
 
 func _update_hitbox_size():
@@ -72,7 +77,10 @@ func _on_body_entered(body: Node2D):
 	
 	# Hit enemy
 	if body.is_in_group("enemies"):
-		hit_enemy(body)
+		if explosive_radius > 0:
+			explode()
+		else:
+			hit_enemy(body)
 		return
 	
 	# Hit other projectiles (ignore)
@@ -80,7 +88,31 @@ func _on_body_entered(body: Node2D):
 		return
 	
 	# Hit anything else
-	hit_obstacle(body)
+	if explosive_radius > 0:
+		explode()
+	else:
+		hit_obstacle(body)
+
+func explode():
+	print("Projectile exploding with radius: ", explosive_radius)
+	# Deal damage in radius
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	for enemy in enemies:
+		if enemy and is_instance_valid(enemy):
+			var dist = global_position.distance_to(enemy.global_position)
+			if dist <= explosive_radius:
+				# Deal damage (maybe falloff? full for now)
+				if enemy.has_method("take_damage"):
+					enemy.take_damage(damage)
+				
+				if enemy.has_method("apply_knockback") and knockback_force > 0:
+					var knock_dir = (enemy.global_position - global_position).normalized()
+					enemy.apply_knockback(knock_dir * knockback_force * 1.5) # Bonus knockback for explosions
+				
+				EventBus.projectile_hit.emit(enemy, damage)
+	
+	# TODO: Spawn explosion visual effect
+	destroy()
 
 func hit_enemy(enemy: Node2D):
 	var final_damage = damage
@@ -95,6 +127,9 @@ func hit_enemy(enemy: Node2D):
 	# Deal damage to enemy
 	if enemy.has_method("take_damage"):
 		enemy.take_damage(final_damage)
+	
+	if enemy.has_method("apply_knockback") and knockback_force > 0:
+		enemy.apply_knockback(direction * knockback_force)
 	
 	# Emit hit event
 	EventBus.projectile_hit.emit(enemy, final_damage)
