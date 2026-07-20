@@ -3,6 +3,14 @@
 ## What this is
 A top-down survival game in Godot 4.5. You run around, alien squid survival, you auto-shoot, grab XP gems, pick perks, and sometimes pop a power weapon.
 
+Also ships **Colony Mode** (the "Colony Mode" button on the start menu): a
+RimWorld-style survival-colony sim. Colonists harvest, eat, sleep and fight on
+their own; entropy only rises, and the higher it gets the more spacetime
+misbehaves - micro black holes, time dilation zones, and raid surges. Combat
+uses FGC frame data (startup/active/recovery) defined in JSON. All colony
+content is moddable - see `MODDING.md`. Colony code lives in
+`src/scripts/colony/` with defs in `src/resources/defs/`.
+
 ## How to run
 1) Open Godot 4.5. Import `project.godot`.
 2) Set main scene: Project Settings → Application → Main Scene = `res://src/scenes/GameRoot.tscn`.

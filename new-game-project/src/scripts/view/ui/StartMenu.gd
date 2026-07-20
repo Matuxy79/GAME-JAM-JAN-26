@@ -5,7 +5,8 @@ class_name StartMenu
 # Start menu screen. Handles start/options/quit clicks and kicks off the game scene.
 
 # Where to load the game
-const GAME_SCENE_PATH := "res://src/scenes/ColonyGameRoot.tscn"
+const GAME_SCENE_PATH := "res://src/scenes/GameRoot.tscn"
+const COLONY_SCENE_PATH := "res://src/scenes/colony/ColonyRoot.tscn"
 
 # Buttons and popup
 @onready var start_button: Button = $MarginContainer/Panel/VBoxContainer/StartButton
@@ -26,6 +27,17 @@ func setup_buttons():
 	# Start game
 	if start_button:
 		start_button.pressed.connect(_on_start_pressed)
+
+	# Colony mode button (added in code so the .tscn stays untouched)
+	if start_button:
+		var colony_button := Button.new()
+		colony_button.name = "ColonyButton"
+		colony_button.text = "Colony Mode"
+		colony_button.custom_minimum_size = Vector2(0, 44)
+		var container := start_button.get_parent()
+		container.add_child(colony_button)
+		container.move_child(colony_button, start_button.get_index() + 1)
+		colony_button.pressed.connect(_on_colony_pressed)
 	
 	# Open options
 	if options_button:
@@ -40,6 +52,12 @@ func _on_start_pressed():
 	# Go to game scene
 	if get_tree():
 		get_tree().change_scene_to_file(GAME_SCENE_PATH)
+
+# Colony mode button
+func _on_colony_pressed():
+	# Go to the survival-colony sim
+	if get_tree():
+		get_tree().change_scene_to_file(COLONY_SCENE_PATH)
 
 # Options button
 func _on_options_pressed():

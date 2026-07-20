@@ -56,12 +56,6 @@ signal cosmology_event(event_name: String, position: Vector2)
 signal raid_started(count: int)
 signal colony_game_over(day: int)
 
-# Colony simulation signals - triggered by colony loop systems
-signal colony_time_updated(day: int, hour: int, minute: int)
-signal colony_resources_updated(food: int, wood: int, metal: int)
-signal colony_pawn_count_changed(count: int)
-signal colony_event_logged(message: String)
-
 func _ready():
 	print("EventBus initialized")
 

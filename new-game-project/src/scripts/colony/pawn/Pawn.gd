@@ -162,6 +162,10 @@ func _on_sim_tick(tick: int) -> void:
 
 # Pick what to do next: needs first, then work, then wander
 func _tick_idle() -> void:
+	# Raiders don't harvest berries; they only ever hunt
+	if faction != "colony":
+		state = State.COMBAT
+		return
 	if _idle_cooldown > 0:
 		_idle_cooldown -= 1
 		return
@@ -324,13 +328,13 @@ func _find_enemy(within: float) -> Node2D:
 
 # Slowest time dilation zone we are standing in (1.0 = normal spacetime)
 func _compute_time_scale() -> float:
-	var scale := 1.0
+	var slowest := 1.0
 	for zone in get_tree().get_nodes_in_group("time_zones"):
 		if not is_instance_valid(zone):
 			continue
 		if position.distance_to(zone.position) <= zone.radius:
-			scale = minf(scale, zone.time_scale)
-	return scale
+			slowest = minf(slowest, zone.time_scale)
+	return slowest
 
 # Flop over and tell the world
 func _die() -> void:
