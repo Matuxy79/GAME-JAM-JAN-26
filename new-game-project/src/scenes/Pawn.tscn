@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/scripts/model/pawn/Pawn.gd" id="1_pawn"]
+
+[node name="Pawn" type="CharacterBody2D"]
+script = ExtResource("1_pawn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.5, 0.8, 1, 1)
