@@ -16,7 +16,7 @@ const COLOR_WATER := Color("#2b4a6f")
 const COLOR_STOCKPILE := Color("#6b5d33")
 const COLOR_CAMP := Color("#54466b")
 
-var astar := AStarGrid2D.new()
+var pathfinder := GridPathfinder.new()
 var water_cells: Dictionary = {}
 var stockpile_cell := Vector2i(GRID_W / 2, GRID_H / 2)
 var camp_cell := Vector2i(GRID_W / 2 - 3, GRID_H / 2)
@@ -27,7 +27,7 @@ var _rng := RandomNumberGenerator.new()
 func _ready():
 	_rng.seed = 1337
 	_generate_terrain()
-	_setup_astar()
+	_setup_pathfinder()
 	_spawn_resource_nodes()
 	queue_redraw()
 
@@ -51,7 +51,7 @@ func find_path(from_pos: Vector2, to_pos: Vector2) -> PackedVector2Array:
 	var to_cell := world_to_cell(to_pos)
 	if not is_walkable(from_cell) or not is_walkable(to_cell):
 		return PackedVector2Array()
-	var cells := astar.get_id_path(from_cell, to_cell)
+	var cells := pathfinder.find_path(from_cell, to_cell)
 	var out := PackedVector2Array()
 	for c in cells:
 		out.append(cell_to_world(c))
@@ -120,14 +120,11 @@ func _generate_terrain() -> void:
 					if cell != stockpile_cell and cell != camp_cell:
 						water_cells[cell] = true
 
-# Configure AStarGrid2D over the map
-func _setup_astar() -> void:
-	astar.region = Rect2i(0, 0, GRID_W, GRID_H)
-	astar.cell_size = Vector2(CELL, CELL)
-	astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
-	astar.update()
+# Configure the hand-rolled A* over the map
+func _setup_pathfinder() -> void:
+	pathfinder.setup(GRID_W, GRID_H)
 	for cell in water_cells.keys():
-		astar.set_point_solid(cell, true)
+		pathfinder.set_solid(cell, true)
 
 # Sprinkle berry bushes and trees around the map
 func _spawn_resource_nodes() -> void:

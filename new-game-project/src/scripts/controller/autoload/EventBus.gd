@@ -47,6 +47,15 @@ signal powerup_activated(duration: float)
 signal time_of_day_changed(hour: int)
 signal sunlight_damage_tick(damage: int)
 
+# Colony mode signals - survival-colony sim events
+signal colony_resources_changed(amounts: Dictionary)
+signal colonist_selected(pawn: Node2D)
+signal pawn_died(pawn: Node2D)
+signal entropy_changed(value: float)
+signal cosmology_event(event_name: String, position: Vector2)
+signal raid_started(count: int)
+signal colony_game_over(day: int)
+
 # Colony simulation signals - triggered by colony loop systems
 signal colony_time_updated(day: int, hour: int, minute: int)
 signal colony_resources_updated(food: int, wood: int, metal: int)

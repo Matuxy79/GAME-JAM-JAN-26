@@ -23,6 +23,8 @@ Save="*res://src/scripts/model/autoload/Save.gd"
 BalanceDB="*res://src/scripts/model/autoload/BalanceDB.gd"
 Rng="*res://src/scripts/model/autoload/Rng.gd"
 AudioManager="*res://src/scripts/controller/autoload/AudioManager.gd"
+SimClock="*res://src/scripts/colony/autoload/SimClock.gd"
+DefDatabase="*res://src/scripts/colony/autoload/DefDatabase.gd"
 ColonyTime="*res://src/scripts/model/autoload/ColonyTime.gd"
 ColonyResources="*res://src/scripts/model/autoload/ColonyResources.gd"
 
