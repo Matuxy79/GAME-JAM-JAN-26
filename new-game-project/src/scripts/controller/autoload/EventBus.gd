@@ -47,6 +47,12 @@ signal powerup_activated(duration: float)
 signal time_of_day_changed(hour: int)
 signal sunlight_damage_tick(damage: int)
 
+# Colony simulation signals - triggered by colony loop systems
+signal colony_time_updated(day: int, hour: int, minute: int)
+signal colony_resources_updated(food: int, wood: int, metal: int)
+signal colony_pawn_count_changed(count: int)
+signal colony_event_logged(message: String)
+
 func _ready():
 	print("EventBus initialized")
 

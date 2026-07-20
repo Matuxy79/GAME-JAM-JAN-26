@@ -5,7 +5,7 @@ class_name StartMenu
 # Start menu screen. Handles start/options/quit clicks and kicks off the game scene.
 
 # Where to load the game
-const GAME_SCENE_PATH := "res://src/scenes/GameRoot.tscn"
+const GAME_SCENE_PATH := "res://src/scenes/ColonyGameRoot.tscn"
 
 # Buttons and popup
 @onready var start_button: Button = $MarginContainer/Panel/VBoxContainer/StartButton
