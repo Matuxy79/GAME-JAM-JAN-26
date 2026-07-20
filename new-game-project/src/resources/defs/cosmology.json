@@ -1,0 +1,42 @@
+{
+  "type": "cosmology",
+  "defs": {
+    "entropy": {
+      "name": "Arrow of Time",
+      "description": "Disorder always increases. The longer the colony survives, the stranger spacetime gets.",
+      "base_rise_per_tick": 0.004,
+      "rise_per_colonist_per_tick": 0.0008,
+      "event_check_interval_ticks": 120,
+      "event_chance_at_zero": 0.02,
+      "event_chance_at_max": 0.5
+    },
+    "black_hole": {
+      "name": "Micro Black Hole",
+      "description": "A primordial black hole wanders in. It eats whatever strays too close, and evaporates into Hawking radiation you can harvest.",
+      "weight": 3,
+      "radius": 26.0,
+      "kill_radius": 18.0,
+      "pull_radius": 120.0,
+      "pull_strength": 55.0,
+      "lifetime_ticks": 450,
+      "shard_drops": 2,
+      "damage_per_tick_in_kill_radius": 2.5
+    },
+    "time_dilation": {
+      "name": "Time Dilation Zone",
+      "description": "A gravity well drags local proper time. Pawns inside live slower than the rest of the colony.",
+      "weight": 4,
+      "radius": 96.0,
+      "time_scale": 0.35,
+      "lifetime_ticks": 600
+    },
+    "entropy_surge": {
+      "name": "Entropy Surge",
+      "description": "The second law collects its debt: a raid materialises at the colony edge.",
+      "weight": 5,
+      "raiders_min": 1,
+      "raiders_max": 3,
+      "raiders_per_25_entropy": 1
+    }
+  }
+}

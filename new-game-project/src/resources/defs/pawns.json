@@ -1,0 +1,49 @@
+{
+  "type": "pawns",
+  "defs": {
+    "colonist": {
+      "name": "Colonist",
+      "faction": "colony",
+      "max_health": 100,
+      "move_speed": 90.0,
+      "color": "#7ec8e3",
+      "radius": 10.0,
+      "abilities": ["quick_slash"],
+      "needs": {
+        "hunger_decay_per_tick": 0.045,
+        "rest_decay_per_tick": 0.03,
+        "hunger_eat_threshold": 35.0,
+        "rest_sleep_threshold": 25.0,
+        "starvation_damage_per_tick": 0.5,
+        "eat_restore": 70.0,
+        "sleep_restore_per_tick": 0.6
+      },
+      "work": {
+        "harvest_ticks": 20,
+        "carry_capacity": 5
+      }
+    },
+    "raider": {
+      "name": "Raider",
+      "faction": "raider",
+      "max_health": 60,
+      "move_speed": 75.0,
+      "color": "#e36e6e",
+      "radius": 10.0,
+      "abilities": ["raider_claw"],
+      "needs": {
+        "hunger_decay_per_tick": 0.0,
+        "rest_decay_per_tick": 0.0,
+        "hunger_eat_threshold": 0.0,
+        "rest_sleep_threshold": 0.0,
+        "starvation_damage_per_tick": 0.0,
+        "eat_restore": 0.0,
+        "sleep_restore_per_tick": 0.0
+      },
+      "work": {
+        "harvest_ticks": 0,
+        "carry_capacity": 0
+      }
+    }
+  }
+}

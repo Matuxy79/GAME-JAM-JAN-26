@@ -1,0 +1,53 @@
+{
+  "type": "abilities",
+  "defs": {
+    "quick_slash": {
+      "name": "Quick Slash",
+      "description": "Fast melee poke. Anime afterimage included.",
+      "damage": 12,
+      "range": 34.0,
+      "arc_degrees": 100.0,
+      "cooldown_ticks": 8,
+      "startup_ticks": 2,
+      "active_ticks": 2,
+      "recovery_ticks": 4,
+      "knockback": 60.0,
+      "hitstun_ticks": 4,
+      "hit_stop_seconds": 0.05,
+      "afterimage": true,
+      "swing_color": "#bfe9ff"
+    },
+    "heavy_cleave": {
+      "name": "Heavy Cleave",
+      "description": "Slow FGC-style heavy with big startup and reward.",
+      "damage": 30,
+      "range": 42.0,
+      "arc_degrees": 140.0,
+      "cooldown_ticks": 24,
+      "startup_ticks": 6,
+      "active_ticks": 3,
+      "recovery_ticks": 9,
+      "knockback": 140.0,
+      "hitstun_ticks": 8,
+      "hit_stop_seconds": 0.09,
+      "afterimage": true,
+      "swing_color": "#ffd27e"
+    },
+    "raider_claw": {
+      "name": "Raider Claw",
+      "description": "Scrappy raider swipe.",
+      "damage": 8,
+      "range": 30.0,
+      "arc_degrees": 90.0,
+      "cooldown_ticks": 12,
+      "startup_ticks": 3,
+      "active_ticks": 2,
+      "recovery_ticks": 6,
+      "knockback": 40.0,
+      "hitstun_ticks": 3,
+      "hit_stop_seconds": 0.03,
+      "afterimage": false,
+      "swing_color": "#ff9b9b"
+    }
+  }
+}

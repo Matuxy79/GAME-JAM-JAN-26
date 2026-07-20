@@ -1,0 +1,29 @@
+{
+  "type": "resources",
+  "defs": {
+    "berry_bush": {
+      "name": "Berry Bush",
+      "yields": "food",
+      "yield_amount": 5,
+      "max_stock": 25,
+      "regrow_per_tick": 0.01,
+      "color": "#69b34c"
+    },
+    "tree": {
+      "name": "Tree",
+      "yields": "wood",
+      "yield_amount": 5,
+      "max_stock": 30,
+      "regrow_per_tick": 0.004,
+      "color": "#8a6b3f"
+    },
+    "hawking_shard": {
+      "name": "Hawking Shard",
+      "yields": "exotic",
+      "yield_amount": 1,
+      "max_stock": 3,
+      "regrow_per_tick": 0.0,
+      "color": "#c9a2ff"
+    }
+  }
+}
